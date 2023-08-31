@@ -1,0 +1,189 @@
+/* Importar la fuente de Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates|Poppins&display=swap');
+
+/* Estilos generales */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Montserrat Alternates', sans-serif;
+	color: white;
+}
+
+/* Estilos del fondo del body */
+body {
+	background: url(https://www.xtrafondos.com/wallpapers/montanas-con-nieve-en-el-bosque-3934.jpg);
+	background-size: 100vw 100vh;
+	background-repeat: no-repeat;
+}
+
+.capa {
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: -1;
+	top: 0;
+	left: 0;
+}
+
+/* Estilos para el encabezado */
+.header {
+	width: 100%;
+	height: 100px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+}
+
+.container {
+	width: 90%;
+	max-width: 1200px;
+	margin: auto;
+}
+
+.container .btn-menu,
+.logo {
+	float: left;
+	line-height: 100px;
+}
+
+.container .btn-menu label {
+	color: #fff;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.logo h1 {
+	color: #fff;
+	font-weight: 400;
+	font-size: 22px;
+	margin-left: 10px;
+}
+
+.container .menu {
+	float: left;
+	line-height: 100px;
+	margin-right: 20px;
+}
+
+.container .menu a {
+	display: inline-block;
+	padding: 15px;
+	line-height: normal;
+	text-decoration: none;
+	color: #fff;
+	transition: all 0.3s ease;
+	border-bottom: 2px solid transparent;
+	font-size: 15px;
+	margin-right: 5px;
+}
+
+.container .menu a:hover {
+	border-bottom: 2px solid #18961e;
+	padding-bottom: 5px;
+}
+
+/* Menú lateral */
+#btn-menu {
+	display: none;
+}
+
+.container-menu {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	transition: all 500ms ease;
+	opacity: 0;
+	visibility: hidden;
+}
+
+#btn-menu:checked~.container-menu {
+	opacity: 1;
+	visibility: visible;
+}
+
+.cont-menu {
+	width: 250px;
+	background: #18961e;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	transition: all 500ms ease;
+}
+
+#btn-menu:checked~.container-menu .cont-menu {
+	left: 250px;
+}
+
+.cont-menu nav {
+	transform: translateY(15%);
+}
+
+.cont-menu nav a {
+	display: block;
+	text-decoration: none;
+	padding: 20px;
+	color: #c7c7c7;
+	border-left: 5px solid transparent;
+	transition: all 400ms ease;
+}
+
+.cont-menu nav a:hover {
+	border-left: 5px solid #c7c7c7;
+	background: #1f1f1f;
+}
+
+.cont-menu label {
+	position: absolute;
+	right: 5px;
+	top: 10px;
+	color: #fff;
+	cursor: pointer;
+	font-size: 18px;
+}
+
+/* Estilos para el formulario de venta */
+.container form {
+	margin-top: 100px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: rgba(0, 0, 0, 0.6);
+	padding: 20px;
+	border-radius: 5px;
+}
+
+.container form .card {
+	background-color: transparent;
+}
+
+.container form .card h3 {
+	color: white;
+}
+
+.container form label {
+	color: white;
+}
+
+.container form input[type="text"],
+.container form input[type="number"] {
+	color: white;
+	background-color: rgba(255, 255, 255, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.container form input[type="submit"] {
+	background-color: #18961e;
+	border: 1px solid #18961e;
+}
+
+.container form input[type="submit"]:hover {
+	background-color: #1f7f1f;
+	border: 1px solid #1f7f1f;
+}

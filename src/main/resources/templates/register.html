@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+    <title>Iniciar sesión</title>
+    
+    <!-- Bootstrap core CSS -->
+  <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link th:href="@{css/heroic-features.css}" rel="stylesheet">
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .rectangulo-superior,
+    .rectangulo-inferior {
+      height: 85px;
+      background-color: lightgray;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 3px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 3px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .m-0 {
+ 	 margin: 0 !important;
+	}
+	.text-center {
+ 	 text-align: center !important;
+	}
+	.form-group {
+ 	 margin-bottom: 1rem;
+	}
+	  .floating-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+    .btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+  </style>
+    
+</head>
+<body>
+<h2>Registro de Usuario</h2>
+<form th:action="@{/saveUsuario}" th:object="${usuario}" method="POST">
+    <label>Nombre</label>
+    <input th:field="*{nombreUsuario}" type="text" class="form-control" />
+
+    <label>Apellido</label>
+    <input th:field="*{apellidoUsuario}" type="text" class="form-control" />
+
+    <label>Tipo de Identificacion</label>
+    <select th:field="*{tipoIdentificacionUsuario}" class="form-control">
+        <option value="CC">Cedula de ciudadania</option>
+        <option value="TI">Tarjeta de identidad</option>
+        <option value="CE">Cedula de extranjeria</option>
+        <option value="PP">Permiso de permanencia</option>
+        <option value="PPT">Permiso de permanencia Especial</option>
+    </select>
+
+    <label>Numero de identificacion</label>
+    <input th:field="*{numeroIdentificacionUsuario}" type="number" class="form-control" />
+
+    <label>Numero de celular</label>
+    <input th:field="*{numeroTell}" type="text" class="form-control" />
+
+    <label>Correo Electronico</label>
+    <input th:field="*{correo}" type="text" class="form-control" />
+
+    <label>Nombre de usuario</label>
+    <input th:field="*{username}" type="text" class="form-control" />
+
+    <label>Contraseña</label>
+    <input th:field="*{password}" type="text" class="form-control" />
+
+    <label>Rol</label>
+    <select th:field="*{rolesAsignados}" multiple="multiple" class="form-control">
+        <option th:each="rol : ${usuario.rolesDisponibles}" th:value="${rol}" th:text="${rol}"></option>
+    </select>
+    <input type="hidden" name="activo" value="true">
+    <input type="submit" value="Registrarse" class="btn btn-success">
+</form>
+</body>
+    
+    <!-- Bootstrap core JavaScript -->
+  <script th:src="@{vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

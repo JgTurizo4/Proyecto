@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+
+  <title>Restablecer Contraseña</title>
+</head>
+<body>
+<h2>Resetear Contraseña</h2>
+<form th:action="@{/resetear-contrasena/{codigoRecuperacion}(codigoRecuperacion=${codigoRecuperacion})}" method="post">
+  <input type="hidden" name="codigoRecuperacion" th:value="${codigoRecuperacion}">
+  <label for="nuevaContrasena">Nueva Contraseña:</label>
+  <input type="password" id="nuevaContrasena" name="nuevaContrasena" required><br>
+  <label for="confirmarContrasena">Confirmar Contraseña:</label>
+  <input type="password" id="confirmarContrasena" name="confirmarContrasena" required><br>
+  <button type="submit">Guardar Contraseña</button>
+</form>
+</body>
+</html>

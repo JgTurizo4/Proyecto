@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/">
+<head>
+	<meta charset="UTF-8">
+	<title>Inicio</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css%22%3E">
+	<link rel="icon" href="static/img/iconoPro.ico" th:href="@{/img/iconoPro.png}">
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: 'Montserrat Alternates', sans-serif;
+	}
+	body{
+		background: url([[@{/img/fondo2.jpg}]]);
+		background-size: 100vw 100vh;
+		background-repeat: no-repeat;
+	}
+	.capa{
+		position: fixed;
+		width: 100%;
+		height: 100vh;
+		background: rgba(0, 0, 0, 0.3);
+		z-index: -1;
+		top: 0;
+		left: 0;
+	}
+	/*Estilos para el encabezado*/
+	.header {
+		width: 100%;
+		height: 100px;
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+	.container{
+		width: 90%;
+		max-width: 1200px;
+		margin: auto;
+	}
+	.container .btn-menu, .logo{
+		float: left;
+		line-height:100px;
+	}
+	.container .btn-menu label{
+		color: #fff;
+		padding:0px 30px;
+		font-size: 25px;
+		cursor: pointer;
+	}
+	.logo h1{
+		color: #fff;
+		padding: 0px -30px;
+		font-weight: 400;
+		font-size: 22px;
+		margin-left: 10px;
+	}
+	.container .menu{
+		float: right;
+		line-height: 100px;
+	}
+	.container .menu a{
+		display: inline-block;
+		padding: 15px;
+		line-height: normal;
+		text-decoration: none;
+		color: #fff;
+		transition: all 0.3s ease;
+		border-bottom: 2px solid transparent;
+		font-size: 15px;
+		margin-right: 5px;
+	}
+	.container .menu a:hover{
+		border-bottom: 2px solid #CA9A4E;
+		padding-bottom: 5px;
+	}
+	/*Fin de Estilos para el encabezado*/
+
+	/*Menù lateral*/
+	#btn-menu{
+		display: none;
+	}
+	.container-menu{
+		position: absolute;
+		background: rgba(0,0,0,0.5);
+		width: 100%;
+		height: 100vh;
+		top: 0;
+		left: 0;
+		transition: all 500ms ease;
+		opacity: 0;
+		visibility: hidden;
+	}
+	#btn-menu:checked ~ .container-menu{
+		opacity: 1;
+		visibility: visible;
+	}
+	.cont-menu{
+		width: 100%;
+		max-width: 250px;
+		background: #927D4E;
+		height: 100vh;
+		position: relative;
+		transition: all 500ms ease;
+		transform: translateX(-100%);
+	}
+	#btn-menu:checked ~ .container-menu .cont-menu{
+		transform: translateX(0%);
+	}
+	.cont-menu nav{
+		transform: translateY(15%);
+	}
+	.cont-menu nav a{
+		display: block;
+		text-decoration: none;
+		padding: 20px;
+		color: white;
+		border-left: 5px solid transparent;
+		transition: all 400ms ease;
+	}
+	.cont-menu nav a:hover{
+		border-left: 5px solid #c7c7c7;
+		background: #7D2A0C;
+	}
+	.cont-menu label{
+		position: absolute;
+		right: 5px;
+		top: 10px;
+		color: #fff;
+		cursor: pointer;
+		font-size: 18px;
+	}
+	.contenedor {
+		border: solid 1px rgba(255, 255, 255, 0.2);
+		padding-left: 450px;
+		padding-top: 150px;
+	}
+
+	thead {
+		background: #ECDDB6;
+	}
+
+	th {
+		padding: 20px 15px ;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	td {
+		padding: 15px;
+		border-bottom: solid 1px #ECDDB6;
+		color: #fff;
+	}
+	.logoimagen img{
+		width: 50%;
+		height: 50%;
+		margin: 10vh 45vh;
+	}
+
+
+	tbody tr {
+		cursor: pointer;
+	}
+
+	tbody tr:hover {
+		background: rgb(223, 199, 136);
+	}
+
+	label {
+		display: block;
+		margin-bottom: 3px;
+		font-weight: bold;
+	}
+	.close{
+		padding-top: 3.5%;
+		padding-left: 68%;
+	}
+</style>
+<body>
+<header class="header">
+	<div class="container">
+		<div class="btn-menu">
+			<label for="btn-menu">☰</label>
+		</div>
+		<div class="logo">
+			<h1>TBS</h1>
+		</div>
+		<nav class="menu">
+			<a href="#">Inicio</a>
+			<a href="new">Venta</a>
+			<a href="Productos">Productos</a>
+		</nav>
+		<form class="close" id="logoutForm" th:action="@{/logout}" method="post">
+			<input type="submit" value="Cerrar sesión">
+		</form>
+	</div>
+</header>
+<div class="capa">
+	<div class="logoimagen">
+		<img src="static/img/logopan.png" th:src="@{/img/logopan.png}">
+	</div>
+	<input type="checkbox" id="btn-menu">
+	<div class="container-menu">
+		<div class="cont-menu">
+			<nav>
+				<a href="#">Inicio</a>
+				<a href="consultarVentas">Consultar Ventas</a>
+				<a href="orden">Orden</a>
+				<a href="prodRepro">Reproduccion</a>
+				<a href="produccion">Produccion</a>
+				<a href="Productos">Productos</a>
+				<a href="new">Ventas</a>
+			</nav>
+			<label for="btn-menu">X</label>
+		</div>
+	</div>
+</div>
+</body>
+</html>

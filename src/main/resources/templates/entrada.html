@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Entrada</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="icon" href="static/img/iconoPro.ico" th:href="@{/img/iconoPro.png}">
+	<style>
+		/* Estilos generales */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Montserrat Alternates', sans-serif;
+		}
+
+		body {
+			background: url([[@{/img/fondo2.jpg}]]);
+			background-size: 100vw 100vh;
+			background-repeat: no-repeat;
+		}
+
+		.capa {
+			position: fixed;
+			width: 100%;
+			height: 100vh;
+			background: rgba(0, 0, 0, 0.3);
+			z-index: -1;
+			top: 0;
+			left: 0;
+		}
+
+		/* Estilos para el encabezado */
+		.header {
+			width: 100%;
+			height: 100px;
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+
+		.container {
+			width: 90%;
+			max-width: 1200px;
+			margin: auto;
+		}
+
+		.container .btn-menu,
+		.logo {
+			float: left;
+			line-height: 100px;
+		}
+
+		.container .btn-menu label {
+			color: #fff;
+			font-size: 25px;
+			cursor: pointer;
+		}
+
+		.logo h1 {
+			color: rgb(255, 255, 255);
+			margin: 38px;
+			font-weight: 400;
+			font-size: 22px;
+			margin-left: 10px;
+		}
+
+		.container .menu {
+			float: right;
+			line-height: 100px;
+		}
+
+		.card-header {
+			padding: 15px;
+			background-color: transparent;
+			border-bottom: none;
+			font-size: 16px;
+			font-weight: 700;
+			color: rgb(255, 255, 255);
+		}
+
+		table {
+			color: #fff;
+			font-size: 14px;
+			table-layout: fixed;
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+		}
+
+
+
+		.container .menu a {
+			display: inline-block;
+			padding: 15px;
+			line-height: normal;
+			text-decoration: none;
+			color: #fff;
+			transition: all 0.3s ease;
+			border-bottom: 2px solid transparent;
+			font-size: 15px;
+			margin-right: 5px;
+		}
+
+		.container .menu a:hover {
+			border-bottom: 2px solid #CA9A4E;
+			padding-bottom: 5px;
+		}
+
+		/* Estilos para el menú lateral */
+		#btn-menu {
+			display: none;
+		}
+
+		.container-menu {
+			position: absolute;
+			background: rgba(0, 0, 0, 0.5);
+			width: 100%;
+			height: 100vh;
+			top: 0;
+			left: 0;
+			transition: all 500ms ease;
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		#btn-menu:checked~.container-menu {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.cont-menu {
+			width: 100%;
+			max-width: 250px;
+			background: #927D4E;
+			height: 100vh;
+			position: relative;
+			transition: all 500ms ease;
+			transform: translateX(-100%);
+		}
+
+		#btn-menu:checked~.container-menu .cont-menu {
+			transform: translateX(0%);
+		}
+
+		.cont-menu nav {
+			transform: translateY(15%);
+		}
+
+		.cont-menu nav a {
+			display: block;
+			text-decoration: none;
+			padding: 20px;
+			color: white;
+			border-left: 5px solid transparent;
+			transition: all 400ms ease;
+		}
+
+		.cont-menu nav a:hover {
+			border-left: 5px solid #c7c7c7;
+			background: #7D2A0C;
+		}
+
+		.cont-menu label {
+			position: absolute;
+			right: 5px;
+			top: 10px;
+			color: #fff;
+			cursor: pointer;
+			font-size: 18px;
+		}
+
+		.btn-primary {
+			background-color: #CA9A4E;
+			border: 1px solid #CA9A4E;
+			color: white;
+		}
+
+		.btn-primary:hover {
+			background-color: rgb(176, 131, 53);
+			border: 1px solid rgb(176, 131, 53);
+			color: black;
+		}
+
+		.btn-excel {
+			background-color: rgb(0, 128, 0);
+			border: 1px solid rgb(0, 128, 0);
+			color: white;
+		}
+
+		.btn-excel:hover {
+			background-color: rgb(0, 85, 0);
+			border: 1px solid rgb(0, 85, 0);
+		}
+
+		.btn-warning {
+			background-color: #ffc107;
+			border: 1px solid #ffc107;
+		}
+
+		.btn-warning:hover {
+			background-color: #d39e00;
+			border: 1px solid #d39e00;
+		}
+
+		.btn-danger {
+			background-color: #dc3545;
+			border: 1px solid #dc3545;
+		}
+
+		.btn-danger:hover {
+			background-color: #a71d30;
+			border: 1px solid #a71d30;
+			color: black;
+		}
+
+		.label {
+			display: block;
+			margin-bottom: 3px;
+			font-weight: bold;
+		}
+
+		.logoimagen img {
+			width: 6%;
+			height: 6%;
+			margin: 15px -10px;
+		}
+
+		.container h2 {
+			margin-top: 80px;
+			padding-bottom: 20px;
+		}
+
+		.buscar {
+			padding: 15px;
+			background-color: transparent;
+			color: transparent;
+			border-radius: 4px;
+			box-shadow: none;
+			margin-top: -60px;
+		}
+
+		.close {
+			padding-top: 30px;
+
+		}
+	</style>
+</head>
+
+<body>
+<header class="header">
+	<div class="container">
+		<div class="logoimagen">
+			<img src="static/img/logopan.png" th:src="@{/img/logopan.png}">
+			<div class="btn-menu">
+				<label for="btn-menu">☰</label>
+			</div>
+			<div class="logo">
+				<h1>TSB</h1>
+			</div>
+			<nav class="menu">
+				<a href="home">Inicio</a>
+				<a href="consultarVentas">Consultar Ventas</a>
+				<a href="Productos">Productos</a>
+			</nav>
+			<form class="close" id="logoutForm" th:action="@{/logout}" method="post">
+				<input type="submit" value="Cerrar sesión">
+			</form>
+		</div>
+	</div>
+</header>
+<div class="capa"></div>
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+	<div class="cont-menu">
+		<nav>
+			<a href="home">Inicio</a>
+			<a href="orden">Orden</a>
+			<a href="prodRepro">Reproduccion</a>
+			<a href="produccion">Produccion</a>
+			<a href="Productos">Productos</a>
+			<a href="new">Ventas</a>
+		</nav>
+		<label for="btn-menu">X</label>
+	</div>
+</div>
+
+<div class="container mt-5">
+	<h2>Entradas</h2>
+	<div class="card-heard">
+		<a th:href="@{/newEntrada}" class="btn btn-primary">Realizar una entrada</a>
+		<a th:href="@{/exportarEntrada}" class="btn btn-excel">Exportar a excel</a>
+		<div class="row justify-content-end">
+			<div class="buscar">
+				<input type="text" class="form-control" placeholder="Buscar">
+			</div>
+		</div>
+
+	</div>
+	<table class="table">
+		<div class="card-header">
+			<thead>
+			<tr>
+				<th>Quien recibe</th>
+				<th>Cedula Proveedor</th>
+				<th>Tipos productos</th>
+				<th>Cantidad</th>
+				<th>fecha y hora</th>
+				<th>Acciones</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="entrada:${entradas}">
+				<td th:text="${entrada.recibeEntrada}"></td>
+				<td th:text="${entrada.cedulaProvEntrada}"></td>
+				<td th:text="${entrada.nombreItemEntrada}"></td>
+				<td th:text="${entrada.cantidadEntrada}"></td>
+				<td th:text="${entrada.fechaEntrada}"></td>
+				<td>
+					<a th:href="@{/editar/}+${entrada.idEntrada}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/eliminar/}+${entrada.idEntrada}" class="btn btn-danger">Eliminar</a>
+				</td>
+			</tr>
+			</tbody>
+		</div>
+	</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Consultar ventas</title>
+	<link rel="icon" href="static/img/iconoPro.ico" th:href="@{/img/iconoPro.png}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<style>
+		/* Estilos generales */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Montserrat Alternates', sans-serif;
+		}
+
+		body {
+			background: url([[@{/img/fondo2.jpg}]]);
+			background-size: 100vw 100vh;
+			background-repeat: no-repeat;
+		}
+
+		.capa {
+			position: fixed;
+			width: 100%;
+			height: 100vh;
+			background: rgba(0, 0, 0, 0.3);
+			z-index: -1;
+			top: 0;
+			left: 0;
+		}
+
+		/* Estilos para el encabezado */
+		.header {
+			width: 100%;
+			height: 100px;
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+
+		.container {
+			width: 90%;
+			max-width: 1200px;
+			margin: auto;
+		}
+
+		.container .btn-menu,
+		.logo {
+			float: left;
+			line-height: 100px;
+		}
+
+		.container .btn-menu label {
+			color: #fff;
+			font-size: 25px;
+			cursor: pointer;
+		}
+
+		.logo h1 {
+			color: rgb(255, 255, 255);
+			margin: 38px;
+			font-weight: 400;
+			font-size: 22px;
+			margin-left: 10px;
+		}
+
+		.container .menu {
+			float: right;
+			line-height: 100px;
+		}
+
+		.container .menu a {
+			display: inline-block;
+			padding: 15px;
+			line-height: normal;
+			text-decoration: none;
+			color: #fff;
+			transition: all 0.3s ease;
+			border-bottom: 2px solid transparent;
+			font-size: 15px;
+			margin-right: 5px;
+		}
+
+		.container .menu a:hover {
+			border-bottom: 2px solid #CA9A4E;
+			padding-bottom: 5px;
+		}
+
+		/* Estilos para el menú lateral */
+		#btn-menu {
+			display: none;
+		}
+
+		.container-menu {
+			position: absolute;
+			background: rgba(0, 0, 0, 0.5);
+			width: 100%;
+			height: 100vh;
+			top: 0;
+			left: 0;
+			transition: all 500ms ease;
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		#btn-menu:checked~.container-menu {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.cont-menu {
+			width: 100%;
+			max-width: 250px;
+			background: #927D4E;
+			height: 100vh;
+			position: relative;
+			transition: all 500ms ease;
+			transform: translateX(-100%);
+		}
+
+		#btn-menu:checked~.container-menu .cont-menu {
+			transform: translateX(0%);
+		}
+
+		.cont-menu nav {
+			transform: translateY(15%);
+		}
+
+		.cont-menu nav a {
+			display: block;
+			text-decoration: none;
+			padding: 20px;
+			color: white;
+			border-left: 5px solid transparent;
+			transition: all 400ms ease;
+		}
+
+		.cont-menu nav a:hover {
+			border-left: 5px solid #c7c7c7;
+			background: #7D2A0C;
+		}
+
+		.cont-menu label {
+			position: absolute;
+			right: 5px;
+			top: 10px;
+			color: #fff;
+			cursor: pointer;
+			font-size: 18px;
+		}
+
+		/* Estilos para el contenido */
+		.contenedor {
+			border: solid 1px rgba(255, 255, 255, 0.2);
+			padding-left: 450px;
+			padding-top: 150px;
+		}
+
+		/* Estilos para la tabla */
+		table {
+			color: black;
+			font-size: 14px;
+			table-layout: fixed;
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+		}
+
+		thead {
+			background: #FFB84D;
+		}
+
+		th {
+			padding: 20px 15px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: black;
+		}
+
+		td {
+			padding: 15px;
+			border-bottom: solid 1px #FFB84D;
+			color: #fff;
+		}
+
+		tbody tr {
+			cursor: pointer;
+		}
+
+		tbody tr:hover {
+			background: rgb(223, 199, 136);
+		}
+
+		/* Estilos para los botones */
+		.btn {
+			display: inline-block;
+			padding: 8px 16px;
+			border-radius: 4px;
+			color: #fff;
+			text-decoration: none;
+			transition: background-color 0.3s ease;
+		}
+
+		.btn-primary {
+			background-color: #CA9A4E;
+			border: 1px solid #CA9A4E;
+			color: white;
+		}
+
+		.btn-primary:hover {
+			background-color: rgb(176, 131, 53);
+			border: 1px solid rgb(176, 131, 53);
+			color: black;
+		}
+		.btn-excel {
+			background-color: rgb(0, 85, 0);
+			border: 1px solid rgb(0, 85, 0);
+		}
+
+		.btn-excel:hover {
+			background-color: rgb(0, 128, 0);
+			border: 1px solid rgb(0, 128, 0);
+		}
+
+		.btn-warning {
+			background-color: #ffc107;
+			border: 1px solid #ffc107;
+		}
+
+		.btn-warning:hover {
+			background-color: #d39e00;
+			border: 1px solid #d39e00;
+		}
+
+		.btn-danger {
+			background-color: rgba(111, 28, 32, 0.99);
+			border: 1px solid black;
+		}
+
+		.btn-danger:hover {
+			background-color: #a71d30;
+			border: 1px solid #a71d30;
+			color: black;
+		}
+		.buscar{
+			padding: 15px;
+			background-color: transparent;
+			color:transparent;
+			border-radius: 4px;
+			box-shadow: none;
+			margin-top: -60px;
+		}
+		.container h2{
+			padding-top: 30px;
+		}
+
+		.logoimagen img{
+			width: 6%;
+			height: 6%;
+			margin: 15px -10px;
+		}
+		.close{
+			padding-top: 30px;
+
+		}
+	</style>
+</head>
+
+<body>
+	<header class="header">
+		<div class="container">
+			<div class="logoimagen">
+			<img src="static/img/logopan.png" th:src="@{/img/logopan.png}">
+			<div class="btn-menu">
+				<label for="btn-menu">☰</label>
+			</div>
+			<div class="logo">
+				<h1>TSB</h1>
+			</div>
+			<nav class="menu">
+				<a href="home">Inicio</a>
+				<a href="#">Consultar Ventas</a>
+				<a href="Productos">Productos</a>
+			</nav>
+				<form class="close" id="logoutForm" th:action="@{/logout}" method="post">
+					<input type="submit" value="Cerrar sesión">
+				</form>
+		</div>
+		</div>
+	</header>
+
+	<div class="capa"></div>
+
+	<input type="checkbox" id="btn-menu">
+	<div class="container-menu">
+		<div class="cont-menu">
+			<nav>
+				<a href="home">Inicio</a>
+				<a href="#">Consultar Ventas</a>
+				<a href="orden">Orden</a>
+				<a href="prodRepro">Reproduccion</a>
+				<a href="Productos">Productos</a>
+				<a href="produccion">Produccion</a>
+				<a href="new">Ventas</a>
+			</nav>
+			<label for="btn-menu">X</label>
+		</div>
+	</div>
+
+	<div class="container mt-5">
+		<h2>Ventas realizadas</h2>
+		<div class="opciones">
+			<a th:href="@{/new}" class="btn btn-primary">Realizar venta</a>
+			<a th:href="@{/exportar}" class="btn btn-excel">Exportar Excel</a>
+		</div>
+		<div class="row justify-content-end">
+			<div class="buscar">
+				<input type="text" class="form-control" placeholder="Buscar">
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Cliente</th>
+					<th>Producto</th>
+					<th>Fecha/Hora</th>
+					<th>Total a pagar</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="venta:${ventas}">
+					<td th:text="${venta.idenClienteVenta}"></td>
+					<td th:text="${venta.itemVenta}"></td>
+					<td th:text="${venta.fechaVenta}"></td>
+					<td th:text="${venta.precioTotalVenta}"></td>
+					<td>
+						<a th:href="@{/editar/}+${venta.idVenta}" class="btn btn-warning">Editar</a>
+						<a th:href="@{/eliminar/}+${venta.idVenta}" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>
